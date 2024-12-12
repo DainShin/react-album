@@ -5,9 +5,12 @@ import CommonNav from "@/components/common/navigation/CommonNav"
 import CommonFooter from "@/components/common/footer/CommonFooter"
 import Card from "./components/Card"
 import axios from "axios"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
 function index() {
+
+    const [imgUrls, setImgUrls] = useState([]);
+
     const getData = async () => {
         // open api call
         const API_URL = 'https://api.unsplash.com/search/photos'
@@ -21,10 +24,21 @@ function index() {
             const res = await axios.get(`${API_URL}?query=${searchValue}&client_id=${API_KEY}&page=${pageValue}&per_page=${PER_PAGE}`)
             
             console.log(res);
+            
+            if(res.status === 200) {
+                setImgUrls(res.data.results);
+            }
+
         } catch (error) {
             console.log(error);
         }
     }
+
+    const cardList  = imgUrls.map((card:any) => {
+        return (
+            <Card data={card} key={card}/>
+        )
+    })
 
     useEffect(() => {
         getData();
@@ -49,10 +63,7 @@ function index() {
                 </div>
             </div>
             <div className={styles.page__contents__imageBox}>
-                <Card />
-                <Card />
-                <Card />
-                <Card />
+               {cardList}
             </div>
         </div>
         {/* 공통 footer UI 부분 */}
