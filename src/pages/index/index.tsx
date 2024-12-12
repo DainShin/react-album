@@ -6,6 +6,7 @@ import CommonFooter from "@/components/common/footer/CommonFooter"
 import Card from "./components/Card"
 import axios from "axios"
 import { useEffect, useState } from "react"
+import { CardDTO } from "./types/card"
 
 function index() {
 
@@ -34,9 +35,9 @@ function index() {
         }
     }
 
-    const cardList  = imgUrls.map((card:any) => {
+    const cardList  = imgUrls.map((card:CardDTO) => {
         return (
-            <Card data={card} key={card}/>
+            <Card data={card} key={card.id}/>
         )
     })
 
