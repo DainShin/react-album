@@ -5,24 +5,31 @@ import CommonNav from "@/components/common/navigation/CommonNav"
 import CommonFooter from "@/components/common/footer/CommonFooter"
 import Card from "./components/Card"
 import { CardDTO } from "./types/card"
-import { useState } from "react"
-import { useRecoilValue } from "recoil"
+import { useMemo, useState } from "react"
+import { useRecoilValueLoadable } from "recoil"
 import { imageData } from "@/recoil/selectors/imageSelectors"
 import DetailDialog from "@/components/common/dialog/DetailDialog"
 
 function index() {
 
-    const imgSelector = useRecoilValue(imageData);
+    //const imgSelector = useRecoilValue(imageData);
+    const imgSelector = useRecoilValueLoadable(imageData);
     const [imgData, setImgData] = useState<CardDTO>();
     const [open, setOpen] = useState<boolean>(false); // image details dialog
+    
+    const CARD_LIST = useMemo(() => {
+        // imgSelector.state = hasValue or loading
+        if(imgSelector.state === 'hasValue') {
+            console.log(imgSelector)
+            const result = imgSelector.contents.map((card: CardDTO) => {
+                return <Card data={card} key={card.id} handleDialog={setOpen} handleSetData={setImgData}/> 
+            })
 
-    
-    // get the data from imageSelectors
-    //const cardList = imgSelector.data.r
-    const CARD_LIST = imgSelector.data.results.map((card: CardDTO) => {
-        return <Card data={card} key={card.id} handleDialog={setOpen} handleSetData={setImgData}/>
-    })
-    
+            return result
+        } else {
+            return <div>Loading...</div>
+        }
+    }, [imgSelector])
 
   return (
     <div className={styles.page}>
