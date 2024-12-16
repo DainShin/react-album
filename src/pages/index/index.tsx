@@ -21,7 +21,7 @@ function index() {
         // imgSelector.state = hasValue or loading
         if(imgSelector.state === 'hasValue') {
             console.log(imgSelector)
-            const result = imgSelector.contents.map((card: CardDTO) => {
+            const result = imgSelector.contents.results.map((card: CardDTO) => {
                 return <Card data={card} key={card.id} handleDialog={setOpen} handleSetData={setImgData}/> 
             })
 

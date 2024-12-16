@@ -2,36 +2,30 @@ import { useState } from 'react'
 import styles from './CommonSearchBar.module.scss'
 import { useRecoilState } from 'recoil';
 import { searchState } from '@/recoil/atoms/searchState';
+import { pageState } from '@/recoil/atoms/pageState';
 
 function CommonSearchBar() {
 
   const [search, setSearch] = useRecoilState(searchState);
-
+  const [page, setPage] = useRecoilState(pageState);
   const [text, setText] = useState("");
-
   const onChange = (event) => {
     setText(event.target.value);
   }
 
   const onSearch = () => {
-      if(text === '') {
-        // if users search value with empty value in the input tag box, it will search the default value
-        setSearch('Korea');
-      } else {
-        setSearch(text); 
-      }
-    
+    // if users search value with empty value in the input tag box, it will search the default value
+      if(text === '') setSearch('Korea');
+      else setSearch(text); 
+      setPage(1);
   }
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
-    console.log(event.key);
     if(event.key === 'Enter') {
-      if(text === '') {
-        // if users search value with empty value in the input tag box, it will search the default value
-        setSearch('Korea');
-      } else {
-        setSearch(text); 
-      }
+      // if users search value with empty value in the input tag box, it will search the default value
+      if(text === '') setSearch('Korea');
+      else setSearch(text); 
+      setPage(1);
     }
   }
 
