@@ -9,6 +9,7 @@ import { useMemo, useState } from "react"
 import { useRecoilValueLoadable } from "recoil"
 import { imageData } from "@/recoil/selectors/imageSelectors"
 import DetailDialog from "@/components/common/dialog/DetailDialog"
+import Loading from "./components/Loading"
 
 function index() {
 
@@ -27,7 +28,7 @@ function index() {
 
             return result
         } else {
-            return <div>Loading...</div>
+            return <Loading/>
         }
     }, [imgSelector])
 
