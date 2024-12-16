@@ -1,5 +1,12 @@
 import { CardDTO, Tag } from '@/pages/index/types/card'
 import styles from './DetailDialog.module.scss'
+import { useEffect, useState } from 'react'
+import toast, {toastConfig} from 'react-simple-toasts'
+// import 'react-simple-toasts/dist/style.css'
+// import 'react-simple-toasts/dist/theme/dark.css'
+
+
+// toastConfig({ theme: 'dark' });
 
 interface Props {
     data: CardDTO
@@ -8,9 +15,47 @@ interface Props {
 
 function DetailDialog({ data, handleDialog }: Props) {
 
+    const [bookmark, setBookmark] = useState(false);
+
+    // close dialog
     const closeDialog = () => {
         handleDialog(false)
     }
+
+    // bookmark event
+    const addBookmark = (selected: CardDTO) => {
+        setBookmark(true);
+
+        // localStorage  값을 저장할때 json stringify 로 저장 -> 문자열처럼 저장 -> 원본처럼 보여주기 위해 parse 사용
+        const getLocalStorage = JSON.parse(localStorage.getItem("bookmark"));
+
+        // 1. if there's no data named bookmark in the localStorage
+        if(!getLocalStorage || getLocalStorage === null) {
+            localStorage.setItem('bookmark', JSON.stringify([selected]));
+            console.log('saved image')
+            toast('Saved the image in the bookmark 😊');
+        } else {
+            // 2. if the image is already saved in the localStorage bookmark
+            if(getLocalStorage.findIndex((item: CardDTO) => item.id === selected.id) > -1) {
+                toast('The image is already saved ');
+            } else {
+                // 3. when the image is not saved in the localStorage bookmark + when there's one or more values in the bookmark
+                const res = [...getLocalStorage];
+                res.push(selected);
+                localStorage.setItem('bookmark', JSON.stringify(res));
+
+                toast('Saved the image in the bookmark 😊');
+            }
+        }
+    }
+
+    useEffect(() => {
+        const getLocalStorage = JSON.parse(localStorage.getItem('bookmark'));
+
+        if(getLocalStorage && getLocalStorage.findIndex((item:CardDTO) => item.id === data.id) > -1) {
+            setBookmark(true);
+        } else if (!getLocalStorage) return;
+    }, [])
 
     return (
         <div className={styles.container}>
@@ -26,11 +71,16 @@ function DetailDialog({ data, handleDialog }: Props) {
                     </div>
 
                     <div className={styles.bookmark}>
-                        <button className={styles.bookmark__button}>
+                        <button className={styles.bookmark__button} onClick={() => addBookmark(data)}>
                             {/* Google icon */}
-                            <span className='material-symbols-outlined' style={{ fontSize: 16 + 'px' }}>
+                            { bookmark === false ? 
+                            (<span className='material-symbols-outlined' style={{ fontSize: 16 + 'px' }}>
                                 favorite
-                            </span>
+                            </span>) : 
+                            (<span className='material-symbols-outlined' style={{ fontSize: 16 + 'px', color: 'red' }}>
+                                favorite
+                            </span>)}
+                            
                             Bookmark
                         </button>
                         <button className={styles.bookmark__button}>Download</button>

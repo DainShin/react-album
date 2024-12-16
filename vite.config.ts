@@ -15,6 +15,7 @@ export default defineConfig({
       '@types': fileURLToPath(new URL('./src/types', import.meta.url)),
       '@recoil': fileURLToPath(new URL('./src/recoil', import.meta.url)),
       '@apis': fileURLToPath(new URL('./src/apis', import.meta.url)),
+       'react-simple-toasts/theme-dark': '/node_modules/react-simple-toasts/dist/theme/dark.css',
     },
   },
   // SCSS global
