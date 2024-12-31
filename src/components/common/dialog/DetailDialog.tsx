@@ -26,7 +26,7 @@ function DetailDialog({ data, handleDialog }: Props) {
     const addBookmark = (selected: CardDTO) => {
         setBookmark(true);
 
-        // localStorage  값을 저장할때 json stringify 로 저장 -> 문자열처럼 저장 -> 원본처럼 보여주기 위해 parse 사용
+        // when save the value of localStorage, save as json stringify(save it as a string)
         const getLocalStorage = JSON.parse(localStorage.getItem("bookmark"));
 
         // 1. if there's no data named bookmark in the localStorage
