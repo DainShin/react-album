@@ -1,8 +1,7 @@
 import { CardDTO, Tag } from '@/pages/index/types/card'
 import styles from './DetailDialog.module.scss'
-import React, { useEffect, useState } from 'react'
-import toast, {toastConfig} from 'react-simple-toasts'
-import { eventNames } from 'process'
+import { useEffect, useState } from 'react'
+import toast from 'react-simple-toasts'
 // import 'react-simple-toasts/dist/style.css'
 // import 'react-simple-toasts/dist/theme/dark.css'
 
