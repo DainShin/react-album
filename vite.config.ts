@@ -5,6 +5,9 @@ import { fileURLToPath, URL } from 'url'
 
 // https://vite.dev/config/
 export default defineConfig({
+  build: {
+    outDir: 'build'
+  },
   plugins: [react()],
   resolve: {
     alias: {
