@@ -10,8 +10,8 @@ export default defineConfig({
     resolve: {
         alias: {
             '@': fileURLToPath(new URL('./src', import.meta.url)),
-            // '@assets': fileURLToPath(new URL('./src/assets', import.meta.url)),
-            '@components': fileURLToPath(new URL('./src/components', import.meta.url)),
+            '@assets': fileURLToPath(new URL('./public/assets', import.meta.url)),
+            // '@components': fileURLToPath(new URL('./src/components', import.meta.url)),
             '@pages': fileURLToPath(new URL('./src/pages', import.meta.url)),
             '@types': fileURLToPath(new URL('./src/types', import.meta.url)),
             '@recoil': fileURLToPath(new URL('./src/recoil', import.meta.url)),
@@ -23,7 +23,7 @@ export default defineConfig({
     css: {
         preprocessorOptions: {
             scss: {
-                additionalData: "@import \"/public/assets/styles/main.scss\";",
+                additionalData: "@import \"/assets/styles/main.scss\";",
             },
         },
     },
