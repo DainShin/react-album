@@ -13,7 +13,7 @@ function CommonHeader() {
   return (
     <header className={styles.header}>
       <div className={styles.header__logoBox} onClick={()=>moveToPage('main')}>
-        <img src="src/assets/images/image-logo.png" className={styles.header__logoBox__logo} alt="" />
+        <img src="/assets/images/image-logo.png" className={styles.header__logoBox__logo} alt="" />
         <span className={styles.header__logoBox__title}>PhotoSplash</span>
       </div>
       <div className={styles.header__profileBox}>
