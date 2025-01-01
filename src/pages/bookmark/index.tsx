@@ -22,9 +22,13 @@ function index() {
     <div className={styles.page}>
       <CommonHeader />
       <main className={styles.page__contents}>
-        { data.map((item:CardDTO) => {
-          return <Card prop={item} key={item.id}/>
-        })}
+        { data.length === 0 ? 
+          (<div className={styles.page__contents__noData}>No Data</div>) : 
+          (data.map((item:CardDTO) => {
+            return <Card prop={item} key={item.id}/>
+          }))
+        }
+       
       </main>
     </div>
   )
