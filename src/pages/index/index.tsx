@@ -37,7 +37,7 @@ function index() {
         {/* Common Header UI */}
         <CommonHeader/>
         {/* Common Nav UI */}
-        {/* <CommonNav/> */}
+        <CommonNav/>
         <div className={styles.page__contents}>
             <div className={styles.page__contents__introBox}>
                 <div className={styles.wrapper}>

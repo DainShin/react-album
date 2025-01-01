@@ -1,7 +1,8 @@
 import { CardDTO, Tag } from '@/pages/index/types/card'
 import styles from './DetailDialog.module.scss'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import toast, {toastConfig} from 'react-simple-toasts'
+import { eventNames } from 'process'
 // import 'react-simple-toasts/dist/style.css'
 // import 'react-simple-toasts/dist/theme/dark.css'
 
@@ -19,7 +20,8 @@ function DetailDialog({ data, handleDialog }: Props) {
 
     // close dialog
     const closeDialog = () => {
-        handleDialog(false)
+        handleDialog(false);
+        
     }
 
     // bookmark event
@@ -55,6 +57,16 @@ function DetailDialog({ data, handleDialog }: Props) {
         if(getLocalStorage && getLocalStorage.findIndex((item:CardDTO) => item.id === data.id) > -1) {
             setBookmark(true);
         } else if (!getLocalStorage) return;
+
+        // esc key -> close the dialog
+        const escKeyDownCloseDialog = (event: any) => {
+            console.log('escKeyDownCloseDialog');
+            if(event.key === 'Escape') closeDialog();
+        }
+
+        // event for escKeyDownCloseDialog 
+        window.addEventListener('keydown', escKeyDownCloseDialog)
+        return () => window.removeEventListener("keydown", escKeyDownCloseDialog)
     }, [])
 
     return (
